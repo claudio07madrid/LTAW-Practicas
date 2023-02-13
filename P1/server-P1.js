@@ -10,7 +10,7 @@ const server = http.createServer((req, res) => {
   //-- Indicamos que se ha recibido una petición
   console.log("Petición recibida!");
 // Ruta de la imagen en el servidor
-const imagePath = 'C:/Users/Usuario/Desktop/URJC/Cuarto/LTAW/LTAW-Practicas/P1/fondo.jpg';
+const imagePath = 'https://github.com/claudio07madrid/LTAW-Practicas/blob/main/P1/fondo.jpg?raw=true';
 
 // Leyendo el archivo de imagen
 fs.readFile(imagePath, (err, data) => {
