@@ -1,66 +1,25 @@
 const http = require('http');
 const fs = require('fs');
+const path = require('path');
 
+const server = http.createServer((req, res) => {
+  // Obtener la ruta del archivo solicitado
+  const filePath = path.join('tienda.html', req.url);
 
-const PUERTO = 9000;
-
-//-- Texto HTML de la página principal
-const pagina_main = //-- Realizar la lectura asíncrona
-fs.readFile('tienda.html','utf8', (err, data) => {
-
-    //-- Cuando los datos están ya disponibles
-    //-- los mostramos en la consola
-    //console.log("Lectura completada...")
-    //console.log("Contenido del fichero: \n")
-    //console.log(data);
-});
-
-//-- Texto HTML de la página de error
-const pagina_error = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi tienda</title>
-</head>
-<body style="background-color: red">
-    <h1 style="color: white">ERROR!!!!</h1>
-</body>
-</html>
-`
-
-const server = http.createServer((req, res)=>{
-    console.log("Petición recibida!");
-
-    //-- Valores de la respuesta por defecto
-    let code = 200;
-    let code_msg = "OK";
-    let page = pagina_main;
-
-    //-- Analizar el recurso
-    //-- Construir el objeto url con la url de la solicitud
-    const url = new URL(req.url, 'http://' + req.headers['host']);
-    console.log(url.pathname);
-
-    //-- Cualquier recurso que no sea la página principal
-    //-- genera un error
-    if (url.pathname != '/') {
-        code = 404;
-        code_msg = "Not Found";
-        page = pagina_error;
+  // Leer el archivo del disco
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      // Si ocurre un error, enviar una respuesta con código 404
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('Archivo no encontrado');
+    } else {
+      // Si se lee el archivo correctamente, enviar una respuesta con código 200 y el contenido del archivo
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.end(data);
     }
-
-    //-- Generar la respusta en función de las variables
-    //-- code, code_msg y page
-    res.statusCode = code;
-    res.statusMessage = code_msg;
-    res.setHeader('Content-Type','text/html');
-    res.write(page);
-    res.end();
+  });
 });
 
-server.listen(PUERTO);
-
-console.log("TIENDA. Escuchando en puerto: " + PUERTO);
+server.listen(9000, () => {
+  console.log('Servidor iniciado en http://localhost:9000');
+});
