@@ -4,7 +4,30 @@ const path = require('path');
 
 const server = http.createServer((req, res) => {
   // Obtener la ruta del archivo solicitado
-  const filePath = path.join('tienda.html', req.url);
+  const filePath = path.join(__dirname, req.url);
+
+  // Obtener la extensión del archivo solicitado
+  const extname = path.extname(filePath);
+
+  // Establecer el tipo de contenido en función de la extensión del archivo solicitado
+  let contentType = 'text/html';
+  switch (extname) {
+    case '.js':
+      contentType = 'text/javascript';
+      break;
+    case '.css':
+      contentType = 'text/css';
+      break;
+    case '.json':
+      contentType = 'application/json';
+      break;
+    case '.png':
+      contentType = 'image/png';
+      break;
+    case '.jpg':
+      contentType = 'image/jpg';
+      break;
+  }
 
   // Leer el archivo del disco
   fs.readFile(filePath, (err, data) => {
@@ -14,7 +37,7 @@ const server = http.createServer((req, res) => {
       res.end('Archivo no encontrado');
     } else {
       // Si se lee el archivo correctamente, enviar una respuesta con código 200 y el contenido del archivo
-      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.writeHead(200, { 'Content-Type': contentType });
       res.end(data);
     }
   });
