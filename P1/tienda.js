@@ -6,6 +6,13 @@ const server = http.createServer((req, res) => {
   // Obtener la ruta del archivo solicitado
   const filePath = path.join(__dirname, req.url);
 
+  const myURL = new URL(req.url, 'http://' + req.headers['host']);
+
+  let path = '';
+  if (myURL.pathname == '/'){
+    path += 'tienda.html';
+  }
+
   // Obtener la extensión del archivo solicitado
   const extname = path.extname(filePath);
 
@@ -43,6 +50,6 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(9000, () => {
-  console.log('Servidor iniciado en http://localhost:9000');
-});
+server.listen(9090, () => {
+  console.log('Servidor iniciado en http://localhost:9090');
+});;
