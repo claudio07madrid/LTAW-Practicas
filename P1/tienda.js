@@ -1,10 +1,13 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const url = require('url');
 
 const server = http.createServer((req, res) => {
   // Obtener la ruta del archivo solicitado
   let filePath = path.join(__dirname, req.url);
+  // Agregar la siguiente línea para imprimir la solicitud del cliente en el terminal
+  console.log(`Se ha solicitado el archivo ${filePath}`);
 
   // Si se accede a la raíz de la URL, cambiar la ruta del archivo a index.html
   if (filePath === path.join(__dirname, '/')) {
@@ -23,16 +26,19 @@ const server = http.createServer((req, res) => {
             // Si no se puede leer la página de error, enviar una respuesta con código 404 y texto plano
             res.writeHead(404, { 'Content-Type': 'text/plain' });
             res.end('Archivo no encontrado');
+            console.log('Archivo no encontrado');
           } else {
             // Si se puede leer la página de error, enviar una respuesta con código 404 y la página de error
             res.writeHead(404, { 'Content-Type': 'text/html' });
             res.end(data);
+            console.log('Archivo no encontrado');
           }
         });
       } else {
         // Si ocurre otro tipo de error al leer el archivo, enviar una respuesta con código 500 y texto plano
         res.writeHead(500, { 'Content-Type': 'text/plain' });
         res.end('Error interno del servidor');
+        console.log('Error interno del servidor')
       }
     } else {
       // Si el archivo existe, establecer el tipo de contenido en función de la extensión del archivo solicitado
