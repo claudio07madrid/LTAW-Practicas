@@ -4,30 +4,51 @@
 }
 
 body{
+    text-align: center;
     background-image: url('fondo_principal.jpg');
     background-size: cover;
     font-family: 'Infinite_Energy';
     }
     .contenedor {
+        margin-top: 100px;
         display: flex;
         flex-wrap: wrap;
+        border: 1px solid #000; /* borde del contenedor */
+        border-bottom: none;
+        border-top: none;
       }
       
       .columna {
         flex: 1;
         min-width: 0; /* Para evitar problemas de desbordamiento de texto */
+        padding: 10px; /* espacio alrededor del contenido de la columna */
+        border-right: 1px solid #000; /* borde derecho de la columna */
+        
       }
       
       .columna-1 {
-        background-color: #ccc;
+        text-align: center;
       }
       
       .columna-2 {
-        background-color: #ddd;
+        text-align: center;
+
       }
       
       .columna-3 {
-        background-color: #eee;
+        text-align: center;
       }
-      
+
+    .fotopokemon{
+        margin-top: 40px;
+        width: 300px;
+    }
+
+    .fotostarwars{
+        width: 200px;
+    }
+
+    .fotomarvel{
+        width: 200px;
+    }
    
