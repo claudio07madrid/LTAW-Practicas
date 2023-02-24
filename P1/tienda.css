@@ -4,9 +4,30 @@
 }
 
 body{
-    background-image: url('fondo.jpg');
+    background-image: url('fondo_principal.jpg');
+    background-size: cover;
+    font-family: 'Infinite_Energy';
     }
-
-    h1{
-        font-family: 'Infinite_Energy';
-    }
+    .contenedor {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      
+      .columna {
+        flex: 1;
+        min-width: 0; /* Para evitar problemas de desbordamiento de texto */
+      }
+      
+      .columna-1 {
+        background-color: #ccc;
+      }
+      
+      .columna-2 {
+        background-color: #ddd;
+      }
+      
+      .columna-3 {
+        background-color: #eee;
+      }
+      
+   
