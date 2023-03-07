@@ -5,7 +5,7 @@
 
 body{
     text-align: center;
-    background-image: url('fondo_principal.jpg');
+    background-image: url('fondo_starwars.jpg');
     background-size: cover;
     font-family: 'Infinite_Energy';
     }
@@ -39,17 +39,23 @@ body{
         text-align: center;
       }
 
-    .fotopokemon{
-        margin-top: 60px;
-        width: 300px;
+      .foto01{
+        width: 150px;
     }
 
-    .fotostarwars{
+      
+
+    .foto4{
         margin-top: 40px;
         width: 200px;
     }
 
-    .fotomarvel{
+    .foto5{
+        margin-top: 40px;
+        width: 200px;
+    }
+
+    .foto6{
         margin-top: 40px;
         width: 200px;
     }
