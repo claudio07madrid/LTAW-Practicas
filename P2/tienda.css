@@ -5,13 +5,9 @@
 
 body{
     text-align: center;
-    background-image: url('fondo_pokeball.jpg');
+    background-image: url('fondo_principal.jpg');
     background-size: cover;
     font-family: 'Infinite_Energy';
-    }
-
-    .boton{
-      text-align: left;
     }
     .contenedor {
         margin-top: 100px;
@@ -43,25 +39,18 @@ body{
         text-align: center;
       }
 
-      .foto0{
-        margin-top: 40px;
-        width: 250px;
+    .fotopokemon{
+        margin-top: 60px;
+        width: 300px;
+    }
 
-      }
-
-    .foto1{
+    .fotostarwars{
         margin-top: 40px;
         width: 200px;
     }
 
-    .foto2{
+    .fotomarvel{
         margin-top: 40px;
         width: 200px;
     }
-
-    .foto3{
-        margin-top: 40px;
-        width: 200px;
-    }
-
    
