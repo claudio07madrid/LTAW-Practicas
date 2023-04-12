@@ -40,7 +40,9 @@ body{
       }
 
     .foto02{
-        width: 100px;
+      margin-top: 40px;
+      margin-right: 110px;
+      width: 100px;;
     }
 
     .foto7{
@@ -57,3 +59,6 @@ body{
         margin-top: 40px;
         width: 200px;
     }
+    .boton{
+      float: left;
+     }

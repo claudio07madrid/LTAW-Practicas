@@ -40,7 +40,10 @@ body{
       }
 
       .foto01{
-        width: 150px;
+        margin-top: 20px;
+        margin-right: 160px;
+        width: 120px;
+
     }
 
       
@@ -59,4 +62,6 @@ body{
         margin-top: 40px;
         width: 200px;
     }
-   
+    .boton{
+      float: left;
+     }

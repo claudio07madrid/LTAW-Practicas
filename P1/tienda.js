@@ -3,16 +3,22 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 
+console.log('Servidor iniciado en http://localhost:9000');
+
+
 const server = http.createServer((req, res) => {
   // Obtener la ruta del archivo solicitado
   let filePath = path.join(__dirname, req.url);
-  // Agregar la siguiente línea para imprimir la solicitud del cliente en el terminal
-  console.log(`Se ha solicitado el archivo ${filePath}`);
-
+  // Obtener solo el nombre del archivo sin la ruta
+  let fileName = path.basename(filePath);
+  
   // Si se accede a la raíz de la URL, cambiar la ruta del archivo a index.html
   if (filePath === path.join(__dirname, '/')) {
     filePath = path.join(__dirname, '/tienda.html');
   }
+
+  // Imprimir solo el nombre del archivo solicitado
+  console.log(`Se ha solicitado el archivo: ${fileName}`);
 
   // Verificar si el archivo existe en el disco
   fs.readFile(filePath, (err, data) => {
@@ -72,6 +78,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(9000, () => {
-  console.log('Servidor iniciado en http://localhost:9000');
 });
 
