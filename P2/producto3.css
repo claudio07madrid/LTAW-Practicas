@@ -1,63 +1,68 @@
 @font-face{
-    font-family:'Infinite_Energy';
-    src:url("Infinite_Energy.ttf");
+  font-family:'Infinite_Energy';
+  src:url("Infinite_Energy.ttf");
 }
 
 body{
-    text-align: center;
-    background-image: url('fondo_marvel.jpg');
-    background-size: cover;
-    font-family: 'Infinite_Energy';
-    }
-    .boton{
-      text-align: left;
-    }
+  text-align: center;
+  background-image: url('fondo_marvel.jpg');
+  background-size: cover;
+  font-family: 'Infinite_Energy';
+  }
+  .boton{
+    text-align: left;
+  }
 
-    .contenedor {
-        margin-top: 100px;
-        display: flex;
-        flex-wrap: wrap;
-        border: 1px solid #000; /* borde del contenedor */
-        border-bottom: none;
-        border-top: none;
-      }
+  .contenedor {
+      margin-top: 100px;
+      display: flex;
+      flex-wrap: wrap;
+      border: 1px solid #000; /* borde del contenedor */
+      border-bottom: none;
+      border-top: none;
+    }
+    
+    .columna {
+      flex: 1;
+      min-width: 0; /* Para evitar problemas de desbordamiento de texto */
+      padding: 10px; /* espacio alrededor del contenido de la columna */
+      border-right: 1px solid #000; /* borde derecho de la columna */
       
-      .columna {
-        flex: 1;
-        min-width: 0; /* Para evitar problemas de desbordamiento de texto */
-        padding: 10px; /* espacio alrededor del contenido de la columna */
-        border-right: 1px solid #000; /* borde derecho de la columna */
-        
-      }
-      
-      .columna-1 {
-        text-align: center;
-      }
-      
-      .columna-2 {
-        text-align: center;
+    }
+    
+    .columna-1 {
+      text-align: center;
+    }
+    
+    .columna-2 {
+      text-align: center;
 
-      }
-      
-      .columna-3 {
-        text-align: center;
-      }
-
-    .foto02{
-        width: 100px;
+    }
+    
+    .columna-3 {
+      text-align: center;
     }
 
-    .foto7{
-        margin-top: 40px;
-        width: 200px;
-    }
+  .foto02{
+    margin-top: 40px;
+    margin-right: 110px;
+    width: 100px;;
+  }
 
-    .foto8{
-        margin-top: 40px;
-        width: 200px;
-    }
+  .foto7{
+      margin-top: 40px;
+      width: 200px;
+  }
 
-    .foto9{
-        margin-top: 40px;
-        width: 200px;
-    }
+  .foto8{
+      margin-top: 40px;
+      width: 200px;
+  }
+
+  .foto9{
+      margin-top: 40px;
+      width: 200px;
+  }
+  .boton{
+    float: left;
+   }

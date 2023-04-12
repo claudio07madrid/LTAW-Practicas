@@ -1,67 +1,73 @@
 @font-face{
-    font-family:'Infinite_Energy';
-    src:url("Infinite_Energy.ttf");
+  font-family:'Infinite_Energy';
+  src:url("Infinite_Energy.ttf");
 }
 
 body{
-    text-align: center;
-    background-image: url('fondo_starwars.jpg');
-    background-size: cover;
-    font-family: 'Infinite_Energy';
-    }
+  text-align: center;
+  background-image: url('fondo_starwars.jpg');
+  background-size: cover;
+  font-family: 'Infinite_Energy';
+  }
 
-    .boton{
-      text-align: left;
-    }
+  .boton{
+    text-align: left;
+  }
 
-    .contenedor {
-        margin-top: 100px;
-        display: flex;
-        flex-wrap: wrap;
-        border: 1px solid #000; /* borde del contenedor */
-        border-bottom: none;
-        border-top: none;
-      }
+  .contenedor {
+      margin-top: 100px;
+      display: flex;
+      flex-wrap: wrap;
+      border: 1px solid #000; /* borde del contenedor */
+      border-bottom: none;
+      border-top: none;
+    }
+    
+    .columna {
+      flex: 1;
+      min-width: 0; /* Para evitar problemas de desbordamiento de texto */
+      padding: 10px; /* espacio alrededor del contenido de la columna */
+      border-right: 1px solid #000; /* borde derecho de la columna */
       
-      .columna {
-        flex: 1;
-        min-width: 0; /* Para evitar problemas de desbordamiento de texto */
-        padding: 10px; /* espacio alrededor del contenido de la columna */
-        border-right: 1px solid #000; /* borde derecho de la columna */
-        
-      }
-      
-      .columna-1 {
-        text-align: center;
-      }
-      
-      .columna-2 {
-        text-align: center;
+    }
+    
+    .columna-1 {
+      text-align: center;
+    }
+    
+    .columna-2 {
+      text-align: center;
 
-      }
-      
-      .columna-3 {
-        text-align: center;
-      }
-
-      .foto01{
-        width: 150px;
+    }
+    
+    .columna-3 {
+      text-align: center;
     }
 
-      
+    .foto01{
+      margin-top: 20px;
+      margin-right: 160px;
+      width: 120px;
 
-    .foto4{
-        margin-top: 40px;
-        width: 200px;
-    }
+  }
 
-    .foto5{
-        margin-top: 40px;
-        width: 200px;
-    }
+    
 
-    .foto6{
-        margin-top: 40px;
-        width: 200px;
-    }
+  .foto4{
+      margin-top: 40px;
+      width: 200px;
+  }
+
+  .foto5{
+      margin-top: 40px;
+      width: 200px;
+  }
+
+  .foto6{
+      margin-top: 40px;
+      width: 200px;
+  }
+  .boton{
+    float: left;
+   }
    
