@@ -67,3 +67,8 @@ body{
    .boton{
     float: left;
    }
+
+   .botonHome{
+    width:50px;
+    float: left;
+   }
