@@ -9,6 +9,11 @@ body{
     background-size: cover;
     font-family: 'Infinite_Energy';
     }
+
+    .boton{
+      text-align: left;
+    }
+
     .contenedor {
         margin-top: 100px;
         display: flex;

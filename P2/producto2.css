@@ -5,7 +5,7 @@
 
 body{
     text-align: center;
-    background-image: url('fondo_pokeball.jpg');
+    background-image: url('fondo_starwars.jpg');
     background-size: cover;
     font-family: 'Infinite_Energy';
     }
@@ -13,6 +13,7 @@ body{
     .boton{
       text-align: left;
     }
+
     .contenedor {
         margin-top: 100px;
         display: flex;
@@ -43,27 +44,24 @@ body{
         text-align: center;
       }
 
-      .foto0{
-        margin-top: 40px;
-        margin-right: 165px;
-        width: 250px;
+      .foto01{
+        width: 150px;
+    }
 
-      }
+      
 
-    .foto1{
+    .foto4{
         margin-top: 40px;
         width: 200px;
     }
 
-    .foto2{
+    .foto5{
         margin-top: 40px;
         width: 200px;
     }
 
-    .foto3{
+    .foto6{
         margin-top: 40px;
         width: 200px;
     }
-   .boton{
-    float: left;
-   }
+   

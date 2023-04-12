@@ -1,0 +1,26 @@
+<!-- * Mi tienda es de bebidas energéticas
+* Productos: bebidas energéticas
+    * Nombre: Nombre de la bebida
+    * Stock: Numero de bebidas de la tienda
+    * Descripción: Información de la bebida
+
+
+    Nombre      Stock   Descripción
+    ======      =====   ===========
+    Red Bull    2       Bebida de guaraná
+    Monster     4       Bebida sin azucar
+    Eneryeti    7       Bebida de fresa-->
+    
+<tienda>
+
+    <producto>
+
+        <Nombre> Red Bull </Nombre>
+        <Stock> 2 </Stock>
+        <Descripción> 
+            Bebida de guaraná con taurina 
+        </Descripción>
+
+    </producto>
+
+</tienda>
