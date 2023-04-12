@@ -1,0 +1,42 @@
+body{
+    background-color: darkred ;
+}
+
+.botonHome{
+    float: left;
+    width: 50px;
+}
+
+.botonBack{
+    float: left;
+    width: 50px;
+}
+
+.contenedor {
+    margin-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    border: 3px solid #000; /* borde del contenedor */
+    border-bottom: none;
+    border-top: none;
+  }
+
+.columna {
+    flex: 1;
+    min-width: 0; /* Para evitar problemas de desbordamiento de texto */
+    padding: 10px; /* espacio alrededor del contenido de la columna */
+    border-right: 1px solid #000; /* borde derecho de la columna */
+    
+  }
+  
+  .columna-1 {
+    text-align: center;
+  }
+  
+  .columna-2 {
+    text-align: center;
+  }
+
+.foto1{
+    width: 350px;
+}
