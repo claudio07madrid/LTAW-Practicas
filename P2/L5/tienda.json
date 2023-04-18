@@ -1,0 +1,45 @@
+{
+    "usuarios": [
+      {
+        "nombre": "Juan Pérez",
+        "correo": "juan@example.com",
+        "contrasena": "password123",
+        "direccion": "123 Main St, Ciudad, País"
+      },
+      {
+        "nombre": "María González",
+        "correo": "maria@example.com",
+        "contrasena": "password456",
+        "direccion": "456 Main St, Ciudad, País"
+      }
+    ],
+    "productos": [
+      {
+        "nombre": "Camiseta",
+        "descripcion": "Camiseta de algodón con logo de la tienda",
+        "precio": 19.99,
+        "cantidad": 10
+      },
+      {
+        "nombre": "Pantalón",
+        "descripcion": "Pantalón de mezclilla de alta calidad",
+        "precio": 39.99,
+        "cantidad": 5
+      }
+    ],
+    "pedidos": [
+      {
+        "id": 1,
+        "usuario": "Juan Pérez",
+        "productos": [
+          {
+            "nombre": "Camiseta",
+            "cantidad": 2
+          }
+        ],
+        "total": 39.98,
+        "estatus": "Pendiente"
+      }
+    ]
+  }
+  

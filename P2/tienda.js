@@ -3,7 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const url = require('url');
 
-console.log('Servidor iniciado en http://localhost:9000');
+const port = 9000;
+
+console.log(`Servidor iniciado en http://localhost:${port}`);
 
 
 const server = http.createServer((req, res) => {
@@ -17,8 +19,28 @@ const server = http.createServer((req, res) => {
     filePath = path.join(__dirname, '/tienda.html');
   }
 
+  if (req.url === '/productos') {
+    // Si se solicita la URL /productos, leer los productos del archivo tienda.json
+    fs.readFile(path.join(__dirname, 'tienda.json'), (err, data) => {
+      if (err) {
+        // Si hay un error al leer el archivo, enviar una respuesta con código 500 y un mensaje de error
+        res.writeHead(500, { 'Content-Type': 'text/plain' });
+        res.end('Error interno del servidor');
+        console.log('Error interno del servidor');
+      } else {
+        // Si se puede leer el archivo, parsear el contenido como un objeto JSON y enviar una respuesta con código 200 y los productos
+        const tienda = JSON.parse(data);
+        const productos = tienda.productos;
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(productos));
+
+        console.log('Productos enviados');
+      }
+    });
+  }
+
   // Imprimir solo el nombre del archivo solicitado
-  console.log(`Se ha solicitado el archivo: http:/${filePath}`);
+  console.log(`Se ha solicitado el archivo: http://localhost:${port}/${fileName}`);
 
   // Verificar si el archivo existe en el disco
   fs.readFile(filePath, (err, data) => {
@@ -77,6 +99,6 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(9000, () => {
+server.listen(port, () => {
 });
 
