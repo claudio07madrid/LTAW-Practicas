@@ -12,6 +12,10 @@ body{
     width: 50px;
 }
 
+.botonCompra{
+  float: left;
+  width: 200px;
+}
 .contenedor {
     margin-top: 100px;
     display: flex;

@@ -18,7 +18,7 @@ const server = http.createServer((req, res) => {
   }
 
   // Imprimir solo el nombre del archivo solicitado
-  console.log(`Se ha solicitado el archivo: ${fileName}`);
+  console.log(`Se ha solicitado el archivo: http:/${filePath}`);
 
   // Verificar si el archivo existe en el disco
   fs.readFile(filePath, (err, data) => {
