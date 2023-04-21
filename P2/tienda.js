@@ -32,6 +32,8 @@ const server = http.createServer((req, res) => {
   let content_type = "text/html";
   let content = FORMULARIO;
 
+  let cookie;
+
   
   if (req.url === '/productos') {
     // Si se solicita la URL /productos, leer los productos del archivo tienda.json
@@ -54,7 +56,7 @@ const server = http.createServer((req, res) => {
   }
 
   // Imprimir solo el nombre del archivo solicitado
-  console.log(`Se ha solicitado el archivo: http://localhost:${port}/${fileName}`);
+  console.log(`Se ha solicitado el archivo: ` + mainURL);
 
   // Verificar si el archivo existe en el disco
   if (fileName.split("?")[0] != "procesar") {
@@ -112,40 +114,48 @@ const server = http.createServer((req, res) => {
       res.end(data);
     }
   });
-}else {
-  console.log("Estamos entrando");
-  let usuarioEncontrado = false;
-  console.log(fileName);
-  usuario = mainURL.searchParams.get('Usuario');
-  contrasena = mainURL.searchParams.get('password');
-  console.log(usuario);
-  console.log(contrasena);
-  archivoJSON = fs.readFileSync("tienda.json");
-  diccionario = JSON.parse(archivoJSON);
-  diccionario["usuarios"].forEach(element => {
-    if(usuario == element["correo"] && contrasena == element["contrasena"]){
-      console.log("si tioooooooooooooooooooooooooooo");
-      usuarioEncontrado = true;
-      return;
-    }
-  });
-  if(usuarioEncontrado){
-    console.log("Usuario encontrado ENVIANDO COOKIE YES UNCLE");
-    res.setHeader("Set-Cookie","user = " + usuario);
-    fs.readFile('tienda.html', function (err, data) {
-      if (err) throw err;
-      let home = data.toString();
-      home = home.replace("<p>Nombre: NOMBRE</p>","<p>Nombre: "+ usuario +"</p>");
-      console.log("hola");
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.write(home);
-      res.end();
+  }else {
+    console.log("Estamos entrando");
+    let usuarioEncontrado = false;
+    console.log(fileName);
+    usuario = mainURL.searchParams.get('Usuario');
+    contrasena = mainURL.searchParams.get('password');
+    console.log(usuario);
+    console.log(contrasena);
+    archivoJSON = fs.readFileSync("tienda.json");
+    diccionario = JSON.parse(archivoJSON);
+    diccionario["usuarios"].forEach(element => {
+      if(usuario == element["nombreUsuario"] && contrasena == element["contrasena"]){
+        console.log("si tioooooooooooooooooooooooooooo");
+        usuarioEncontrado = true;
+        return;
+      }
     });
-} else {
-    // hacer algo si el usuario no se encuentra
-}
+    if(usuarioEncontrado){
+      console.log("Usuario encontrado ENVIANDO COOKIE YES UNCLE");
+      res.setHeader("Set-Cookie","user = " + usuario);
+      cookie = req.headers.cookie;
+      fs.readFile('tienda.html', function (err, data) {
+        if (err) throw err;
+        let home = data.toString();
+        home = home.replace("<p></p>","<p>Usuario: "+ usuario +"</p>");
+        console.log("hola");
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(home);
+        res.end();
+      });
+  } else {
+      // hacer algo si el usuario no se encuentra
+      console.log("El usuario no existe");
+      res.writeHead(302, { 'Location': '/errorUsuario.html' });
+      res.end();
+   }  
+   //-- Leer la Cookie recibida y mostrarla en la consola
+  
+  console.log("AQUI ESTÁ LA COOKIE: " + cookie);
 
-}
+  }
+
 
 });
 

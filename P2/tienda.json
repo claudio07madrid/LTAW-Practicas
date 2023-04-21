@@ -2,25 +2,27 @@
     "usuarios": [
       {
         "nombre": "Claudio Nica",
-        "correo": "claudio@gmail.com",
+        "nombreUsuario": "claudio",
         "contrasena": "1234",
         "direccion": "Plaza 7, Quismondo, España"
       },
       {
         "nombre": "Adrian Jimenez",
-        "correo": "pelinpe",
+        "nombreUsuario": "pelinpe",
         "contrasena": "4567",
         "direccion": "Pepelu 23, Villaverde, España"
       }
     ],
     "productos": [
       {
+        "id": 1,
         "nombre": "Funko Bulbasaur",
         "descripcion": "Funko del pokémon tipo planta Bulbasaur",
         "precio": 60.00,
         "cantidad": 10
       },
       {
+        "id": 2,
         "nombre": "Funko Charmander",
         "descripcion": "Funko del pokémon tipo fuego Charmander",
         "precio": 55.00,
@@ -28,6 +30,7 @@
       },
 
       {
+        "id": 3,
         "nombre": "Funko Squirtle",
         "descripcion": "Funko del pokémon tipo agua Squirtle",
         "precio": 49.99,
@@ -35,6 +38,7 @@
       },
 
       {
+        "id": 4,
         "nombre": "Funko Grogu",
         "descripcion": "Funko del niño de Star Wars, Grogu",
         "precio": 89.99,
@@ -42,6 +46,7 @@
       },
 
       {
+        "id": 5,
         "nombre": "Funko The Mandalorian",
         "descripcion": "Funko del protagonista de la serie The Mandalorian",
         "precio": 59.99,
@@ -49,6 +54,7 @@
       },
 
       {
+        "id": 6,
         "nombre": "Funko Darth Vader",
         "descripcion": "Funko del famoso villano de Star Wars, Darth Vader",
         "precio": 110.00,
@@ -56,6 +62,7 @@
       },
 
       {
+        "id": 7,
         "nombre": "Funko Hulk",
         "descripcion": "Funko del superhéroe de Marvel, Hulk, el gran hombre verde.",
         "precio": 69.99,
@@ -63,6 +70,7 @@
       },
 
       {
+        "id": 8,
         "nombre": "Funko Iron Man",
         "descripcion": "Funko del superhéroe de Marvel, Iron Man.",
         "precio": 100.00,
@@ -70,6 +78,7 @@
       },
 
       {
+        "id": 9,
         "nombre": "Funko Thanos",
         "descripcion": "Funko del villano más poderoso de Marvel, Thanos.",
         "precio": 59.99,
