@@ -37,25 +37,52 @@ io.on('connect', (socket) => {
    // enviar mensaje de bienvenida al nuevo cliente
    socket.send("¡Bienvenido al chat de GISAM!");
 
-  // anunciar al resto de los clientes que se ha unido un nuevo cliente
-  socket.broadcast.emit("nuevoCliente", "Un nuevo cliente se ha unido al chat.");
+   // notificar a los demás clientes que un nuevo cliente se ha conectado
+   socket.broadcast.emit("nuevoCliente", "¡Nuevo usuario conectado!");
 
   //-- Evento de desconexión
   socket.on('disconnect', function(){
     console.log('** CONEXIÓN TERMINADA **'.yellow);
   });  
 
-  //-- Mensaje recibido: Reenviarlo a todos los clientes conectados
   socket.on("message", (msg)=> {
     console.log("Mensaje Recibido!: " + msg.blue);
+  
+    //-- Si el mensaje comienza con un "/", se interpreta como un comando
+    if (msg.startsWith("/")) {
+      //-- Separar el comando y los argumentos (si los hay)
+      const partes = msg.split(" ");
+      const comando = partes[0];
+      const argumento = partes[1];
 
-    //-- Reenviarlo a todos los clientes conectados
+
+    switch(comando) {
+      case "/help":
+        socket.send("Comandos disponibles: /help, /list, /hello, /date");
+        break;
+      case "/list":
+        socket.send("Número de usuarios conectados: " + io.engine.clientsCount);
+        break;
+      case "/hello":
+        const nombre = argumento || "desconocido"
+        socket.send(`¡Hola! ¿Cómo estás ${nombre}?`);
+        break;
+      case "/date":
+        const date = new Date().toLocaleDateString();
+        socket.send("La fecha actual es: " + date);
+        break;
+
+      default:
+        socket.send("Comando desconocido. Inténtalo de nuevo.");
+        break;
+    }
+    }else {
+    //-- Reenviar mensaje a todos los clientes conectados
     io.send(msg);
+  }
   });
-
+  
 });
-
-
 //-- Lanzar el servidor HTTP
 //-- ¡Que empiecen los juegos de los WebSockets!
 server.listen(PUERTO);

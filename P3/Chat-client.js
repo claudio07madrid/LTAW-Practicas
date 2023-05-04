@@ -1,29 +1,28 @@
-//-- Elementos del interfaz
 const display = document.getElementById("display");
 const msg_entry = document.getElementById("msg_entry");
+const status = document.getElementById("status");
 
-//-- Crear un websocket. Se establece la conexión con el servidor
 const socket = io();
 
+socket.on("connect", () => {
+  status.innerHTML = "Conectado";
+});
+
+socket.on("disconnect", () => {
+  status.innerHTML = "Desconectado";
+  display.innerHTML = "¡SERVIDOR DESCONECTADO!";
+});
 
 socket.on("message", (msg)=>{
   display.innerHTML += '<p style="color:blue">' + msg + '</p>';
 });
 
-socket.on("disconnect", ()=> {
-  display.innerHTML="¡SERVIDOR DESCONECTADO!"
-})
-
 socket.on("nuevoCliente", (msg) => {
-  console.log(msg);
+  display.innerHTML += '<p style="color:green">' + msg + '</p>';
 });
 
-
-//-- Al apretar el botón se envía un mensaje al servidor
 msg_entry.onchange = () => {
   if (msg_entry.value)
     socket.send(msg_entry.value);
-  
-  //-- Borrar el mensaje actual
   msg_entry.value = "";
-}
+};
