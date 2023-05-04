@@ -43,6 +43,9 @@ io.on('connect', (socket) => {
   //-- Evento de desconexión
   socket.on('disconnect', function(){
     console.log('** CONEXIÓN TERMINADA **'.yellow);
+
+    //-- Enviar mensaje de desconexion a todos los clientes conectados
+  io.emit('disconectMessage', '** UN CLIENTE SE HA DESCONECTADO **');
   });  
 
   socket.on("message", (msg)=> {
