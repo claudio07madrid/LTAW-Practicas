@@ -10,6 +10,15 @@ socket.on("message", (msg)=>{
   display.innerHTML += '<p style="color:blue">' + msg + '</p>';
 });
 
+socket.on("disconnect", ()=> {
+  display.innerHTML="¡SERVIDOR DESCONECTADO!"
+})
+
+socket.on("nuevoCliente", (msg) => {
+  console.log(msg);
+});
+
+
 //-- Al apretar el botón se envía un mensaje al servidor
 msg_entry.onchange = () => {
   if (msg_entry.value)

@@ -18,7 +18,7 @@ const io = new socketServer(server);
 //-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
 //-- Definir el punto de entrada principal de mi aplicación web
 app.get('/', (req, res) => {
-  res.send('Bienvenido a mi aplicación Web!!!' + '<p><a href="/Chat.html">Test</a></p>');
+  res.send('Bienvenido al chat de GISAM' + '<p><a href="/Chat.html">EMPIEZA A CHATEAR</a></p>');
 });
 
 //-- Esto es necesario para que el servidor le envíe al cliente la
@@ -26,13 +26,19 @@ app.get('/', (req, res) => {
 app.use('/', express.static(__dirname +'/'));
 
 //-- El directorio publico contiene ficheros estáticos
-app.use(express.static('public'));
+app.use(express.static('/'));
 
 //------------------- GESTION SOCKETS IO
 //-- Evento: Nueva conexion recibida
 io.on('connect', (socket) => {
   
   console.log('** NUEVA CONEXIÓN **'.yellow);
+
+   // enviar mensaje de bienvenida al nuevo cliente
+   socket.send("¡Bienvenido al chat de GISAM!");
+
+  // anunciar al resto de los clientes que se ha unido un nuevo cliente
+  socket.broadcast.emit("nuevoCliente", "Un nuevo cliente se ha unido al chat.");
 
   //-- Evento de desconexión
   socket.on('disconnect', function(){
@@ -48,6 +54,7 @@ io.on('connect', (socket) => {
   });
 
 });
+
 
 //-- Lanzar el servidor HTTP
 //-- ¡Que empiecen los juegos de los WebSockets!
