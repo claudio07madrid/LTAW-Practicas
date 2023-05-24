@@ -3,55 +3,110 @@ const electron = require('electron');
 
 console.log("Arrancando electron...");
 
-//-- Variable para acceder a la ventana principal
-//-- Se pone aquí para que sea global al módulo principal
-let win = null;
-
 //-- Punto de entrada. En cuanto electron está listo,
 //-- ejecuta esta función
-electron.app.on('ready', () => {
-    console.log("Evento Ready!");
-
-    //-- Crear la ventana principal de nuestra aplicación
-    win = new electron.BrowserWindow({
-        width: 600,   //-- Anchura 
-        height: 600,  //-- Altura
-
-        //-- Permitir que la ventana tenga ACCESO AL SISTEMA
-        webPreferences: {
-          nodeIntegration: true,
-          contextIsolation: false
-        }
-    });
-
-  //-- En la parte superior se nos ha creado el menu
-  //-- por defecto
-  //-- Si lo queremos quitar, hay que añadir esta línea
-  //win.setMenuBarVisibility(false)
-
-  //-- Cargar contenido web en la ventana
-  //-- La ventana es en realidad.... ¡un navegador!
-  //win.loadURL('https://www.urjc.es/etsit');
-
-  //-- Cargar interfaz gráfica en HTML
-  win.loadFile("index.html");
-
-  //-- Esperar a que la página se cargue y se muestre
-  //-- y luego enviar el mensaje al proceso de renderizado para que 
-  //-- lo saque por la interfaz gráfica
-  win.on('ready-to-show', () => {
-    win.webContents.send('print', "MENSAJE ENVIADO DESDE PROCESO MAIN");
+electron.app.on('ready', ()=>{
+  win = new electron.BrowserWindow({
+    width:640,
+    height:380,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
   });
-
-  //-- Enviar un mensaje al proceso de renderizado para que lo saque
-  //-- por la interfaz gráfica
-  win.webContents.send('print', "MENSAJE ENVIADO DESDE PROCESO MAIN");
-
+  console.log("Evento Ready!");
+  win.loadFile("index.html");
 });
 
+//-- Cargar las dependencias
+const socketServer = require('socket.io').Server;
+const http = require('http');
+const express = require('express');
+const colors = require('colors');
 
-//-- Esperar a recibir los mensajes de botón apretado (Test) del proceso de 
-//-- renderizado. Al recibirlos se escribe una cadena en la consola
-electron.ipcMain.handle('test', (event, msg) => {
-  console.log("-> Mensaje: " + msg);
+const PUERTO = 8080;
+
+//-- Crear una nueva aplciacion web
+const app = express();
+
+//-- Crear un servidor, asosiaco a la App de express
+const server = http.Server(app);
+
+//-- Crear el servidor de websockets, asociado al servidor http
+const io = new socketServer(server);
+
+//-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
+//-- Definir el punto de entrada principal de mi aplicación web
+app.get('/', (req, res) => {
+  res.send('Bienvenido al chat de GISAM' + '<p><a href="/Chat.html">EMPIEZA A CHATEAR</a></p>');
 });
+
+//-- Esto es necesario para que el servidor le envíe al cliente la
+//-- biblioteca socket.io para el cliente
+app.use('/', express.static(__dirname +'/'));
+
+//-- El directorio publico contiene ficheros estáticos
+app.use(express.static('/'));
+
+//------------------- GESTION SOCKETS IO
+//-- Evento: Nueva conexion recibida
+io.on('connect', (socket) => {
+  
+  console.log('** NUEVA CONEXIÓN **'.yellow);
+
+   // enviar mensaje de bienvenida al nuevo cliente
+   socket.send("¡Bienvenido al chat de GISAM!");
+
+   // notificar a los demás clientes que un nuevo cliente se ha conectado
+   socket.broadcast.emit("nuevoCliente", "¡Nuevo usuario conectado!");
+
+  //-- Evento de desconexión
+  socket.on('disconnect', function(){
+    console.log('** CONEXIÓN TERMINADA **'.yellow);
+
+    //-- Enviar mensaje de desconexion a todos los clientes conectados
+  io.emit('disconectMessage', '** UN CLIENTE SE HA DESCONECTADO **');
+  });  
+
+  socket.on("message", (msg)=> {
+    console.log("Mensaje Recibido!: " + msg.blue);
+  
+    //-- Si el mensaje comienza con un "/", se interpreta como un comando
+    if (msg.startsWith("/")) {
+      //-- Separar el comando y los argumentos (si los hay)
+      const partes = msg.split(" ");
+      const comando = partes[0];
+      const argumento = partes[1];
+
+
+    switch(comando) {
+      case "/help":
+        socket.send("Comandos disponibles: /help, /list, /hello, /date");
+        break;
+      case "/list":
+        socket.send("Número de usuarios conectados: " + io.engine.clientsCount);
+        break;
+      case "/hello":
+        const nombre = argumento || "desconocido"
+        socket.send(`¡Hola! ¿Cómo estás ${nombre}?`);
+        break;
+      case "/date":
+        const date = new Date().toLocaleDateString();
+        socket.send("La fecha actual es: " + date);
+        break;
+
+      default:
+        socket.send("Comando desconocido. Inténtalo de nuevo.");
+        break;
+    }
+    }else {
+    //-- Reenviar mensaje a todos los clientes conectados
+    io.send(msg);
+  }
+  });
+  
+});
+//-- Lanzar el servidor HTTP
+//-- ¡Que empiecen los juegos de los WebSockets!
+server.listen(PUERTO);
+console.log("Escuchando en puerto: " + PUERTO);
