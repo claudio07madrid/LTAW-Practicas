@@ -1,35 +1,33 @@
-const display = document.getElementById("display");
-const msg_entry = document.getElementById("msg_entry");
-const status = document.getElementById("status");
+//-- Cargar el módulo de electron
+const electron = require('electron');
 
-const socket = io();
+const displays = document.getElementById("displays");
+const info1 = document.getElementById("info1");
+const info2 = document.getElementById("info2");
+const info3 = document.getElementById("info3");
+const info4 = document.getElementById("info4");
+const info5 = document.getElementById("info5");
+const info6 = document.getElementById("info6");
+const ip = document.getElementById("ip");
+const boton = document.getElementById("btn_test")
 
-socket.on("connect", () => {
-  status.innerHTML = "Conectado";
+info1.textContent = process.arch;
+info2.textContent = process.platform;
+info3.textContent = process.cwd();
+info4.textContent = process.versions.node;
+info5.textContent = process.versions.chrome;
+info6.textContent = process.versions.electron;
+
+boton.onclick = () => {
+  console.log("Boton apretado");
+  electron.ipcRenderer.invoke("boton","HOLA, PROBANDO...");
+}
+
+electron.ipcRenderer.on("ip",(event,mensaje) => {
+  ip.innerHTML = mensaje + "/Chat.html";
+  ip.href = mensaje + "/Chat.html";
 });
 
-socket.on("disconectMessage", (msg)=>{
-  if (msg === '** UN CLIENTE SE HA DESCONECTADO **') {
-    display.innerHTML += '<p style="color:red">' + msg + '</p>';
-  } 
+electron.ipcRenderer.on("recibiendo",(event,mensaje) => {
+  displays.innerHTML += mensaje + "</p>";
 });
-
-socket.on("disconnect", ()=> {
-  display.innerHTML += '<p style="color:red">¡SERVIDOR DESCONECTADO!</p>';
-  status.innerHTML = "Desconectado";
-})
-
-socket.on("message", (msg)=>{
-  display.innerHTML += '<p style="color:blue">' + msg + '</p>';
-});
-
-socket.on("nuevoCliente", (msg) => {
-  display.innerHTML += '<p style="color:green">' + msg + '</p>';
-});
-
-//-- Al apretar el botón se envía un mensaje al servidor
-msg_entry.onchange = () => {
-  if (msg_entry.value)
-    socket.send(msg_entry.value);
-  msg_entry.value = "";
-};

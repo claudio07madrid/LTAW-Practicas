@@ -16,13 +16,23 @@ electron.app.on('ready', ()=>{
   });
   console.log("Evento Ready!");
   win.loadFile("index.html");
+  win.on('ready-to-show', () => {
+    win.webContents.send('ip', 'http://' + ip.address() + ':' + PUERTO);
+  });
+
+  electron.ipcMain.handle("boton", async(event, mensaje) => {
+    console.log(mensaje);
+    io.send("Hola a todos", mensaje);
+    win.webContents.send("recibiendo", "Hola a todos");
+  }
+  )
 });
 
 //-- Cargar las dependencias
 const socketServer = require('socket.io').Server;
 const http = require('http');
 const express = require('express');
-const colors = require('colors');
+const ip = require('ip');
 
 const PUERTO = 8080;
 
@@ -52,7 +62,7 @@ app.use(express.static('/'));
 //-- Evento: Nueva conexion recibida
 io.on('connect', (socket) => {
   
-  console.log('** NUEVA CONEXIÓN **'.yellow);
+  console.log('** NUEVA CONEXIÓN **');
 
    // enviar mensaje de bienvenida al nuevo cliente
    socket.send("¡Bienvenido al chat de GISAM!");
@@ -62,14 +72,14 @@ io.on('connect', (socket) => {
 
   //-- Evento de desconexión
   socket.on('disconnect', function(){
-    console.log('** CONEXIÓN TERMINADA **'.yellow);
+    console.log('** CONEXIÓN TERMINADA **');
 
     //-- Enviar mensaje de desconexion a todos los clientes conectados
   io.emit('disconectMessage', '** UN CLIENTE SE HA DESCONECTADO **');
   });  
 
   socket.on("message", (msg)=> {
-    console.log("Mensaje Recibido!: " + msg.blue);
+    console.log("Mensaje Recibido!: " + msg);
   
     //-- Si el mensaje comienza con un "/", se interpreta como un comando
     if (msg.startsWith("/")) {
@@ -102,6 +112,7 @@ io.on('connect', (socket) => {
     }else {
     //-- Reenviar mensaje a todos los clientes conectados
     io.send(msg);
+    win.webContents.send("recibiendo", msg);
   }
   });
   

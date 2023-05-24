@@ -14,13 +14,34 @@
 
     <!-- Cargar el proceso asociado a esta página -->
     <script src="index.js" defer></script>
+    <script src="Chat-client.js" defer></script>
 
-    <title>CHAT GISAM</title>
+    <title>CHAT KISSMOND</title>
 </head>
 <body>
-    <h1>APP KISSMOND</h1>
+
+    <div id="qrcode"></div>
+    <script src="main.js"></script>
+
+
+    <h1>INTERFAZ GRÁFICA</h1>
+
+    <hr>
+    <h2>Información:</h2>
+    <ul>
+        <li>Arquitectura: <span id="info1" class="blue"></span> </li>
+        <li>Plataforma: <span id="info2" class="blue"></span></li>
+        <li>Diretorio: <span id="info3" class="blue"></span></li>
+        <li>Version de Node: <span id="info4" class="blue"></span></li>
+        <li>Version de Chrome: <span id="info5" class="blue"></span></li>
+        <li>Version de Electron: <span id="info6" class="blue"></span></li>
+
+    </ul>
+
+    <hr>
+    <p>IP:  <span id='ip' class="red"></span> </p>
     <p>   <input type="button" value="Test" id="btn_test"> </p>
-    <h3>Mensajes recibidos</h3>
-    <p id="display"></p>
+   <p>Display:</p>
+    <p id="displays"></p>
 </body>
 </html>
