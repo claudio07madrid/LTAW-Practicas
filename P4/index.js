@@ -10,6 +10,7 @@ const info5 = document.getElementById("info5");
 const info6 = document.getElementById("info6");
 const ip = document.getElementById("ip");
 const boton = document.getElementById("btn_test")
+const nrClientes = document.getElementById("nrClientes");
 
 info1.textContent = process.arch;
 info2.textContent = process.platform;
@@ -31,3 +32,8 @@ electron.ipcRenderer.on("ip",(event,mensaje) => {
 electron.ipcRenderer.on("recibiendo",(event,mensaje) => {
   displays.innerHTML += mensaje + "</p>";
 });
+
+electron.ipcRenderer.on("nrClientes",(event,mensaje) => {
+  nrClientes.textContent = mensaje;
+});
+

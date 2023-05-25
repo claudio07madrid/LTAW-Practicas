@@ -45,6 +45,7 @@ const server = http.Server(app);
 //-- Crear el servidor de websockets, asociado al servidor http
 const io = new socketServer(server);
 
+
 //-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
 //-- Definir el punto de entrada principal de mi aplicación web
 app.get('/', (req, res) => {
@@ -67,6 +68,9 @@ io.on('connect', (socket) => {
    // enviar mensaje de bienvenida al nuevo cliente
    socket.send("¡Bienvenido al chat de GISAM!");
 
+   
+  win.webContents.send("nrClientes",io.engine.clientsCount);
+
    // notificar a los demás clientes que un nuevo cliente se ha conectado
    socket.broadcast.emit("nuevoCliente", "¡Nuevo usuario conectado!");
 
@@ -76,6 +80,9 @@ io.on('connect', (socket) => {
 
     //-- Enviar mensaje de desconexion a todos los clientes conectados
   io.emit('disconectMessage', '** UN CLIENTE SE HA DESCONECTADO **');
+
+  
+  win.webContents.send("nrClientes",io.engine.clientsCount);
   });  
 
   socket.on("message", (msg)=> {
