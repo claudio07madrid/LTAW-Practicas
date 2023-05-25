@@ -2,7 +2,7 @@ const display = document.getElementById("display");
 const msg_entry = document.getElementById("msg_entry");
 const user_msg_entry = document.getElementById("user_msg_entry");
 const status = document.getElementById("status");
-let user = "Anonimo";
+
 
 const socket = io();
 

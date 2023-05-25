@@ -17,7 +17,7 @@ electron.app.on('ready', ()=>{
   console.log("Evento Ready!");
   win.loadFile("index.html");
   win.on('ready-to-show', () => {
-    win.webContents.send('ip', 'http://' + ip.address() + ':' + PUERTO);
+  win.webContents.send('ip', 'http://' + ip.address() + ':' + PUERTO);
   });
 
   electron.ipcMain.handle("boton", async(event, mensaje) => {
@@ -46,6 +46,7 @@ const server = http.Server(app);
 const io = new socketServer(server);
 
 
+
 //-------- PUNTOS DE ENTRADA DE LA APLICACION WEB
 //-- Definir el punto de entrada principal de mi aplicación web
 app.get('/', (req, res) => {
@@ -63,7 +64,7 @@ app.use(express.static('/'));
 //-- Evento: Nueva conexion recibida
 io.on('connect', (socket) => {
   
-  console.log('** NUEVA CONEXIÓN **');
+  console.log('** NUEVA CONEXION **');
 
    // enviar mensaje de bienvenida al nuevo cliente
    socket.send("¡Bienvenido al chat de GISAM!");
@@ -76,7 +77,7 @@ io.on('connect', (socket) => {
 
   //-- Evento de desconexión
   socket.on('disconnect', function(){
-    console.log('** CONEXIÓN TERMINADA **');
+    console.log('** CONEXION TERMINADA **');
 
     //-- Enviar mensaje de desconexion a todos los clientes conectados
   io.emit('disconectMessage', '** UN CLIENTE SE HA DESCONECTADO **');
@@ -91,7 +92,6 @@ io.on('connect', (socket) => {
     //-- Si el mensaje comienza con un "/", se interpreta como un comando
     if (msg.split("/")[1]) {
       //-- Separar el comando y los argumentos (si los hay)
-
       const comando = msg.split("/")[1];
       const argumento = msg.split(":")[0];
 

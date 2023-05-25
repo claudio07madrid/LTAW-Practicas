@@ -12,6 +12,7 @@ const ip = document.getElementById("ip");
 const boton = document.getElementById("btn_test")
 const nrClientes = document.getElementById("nrClientes");
 
+
 info1.textContent = process.arch;
 info2.textContent = process.platform;
 info3.textContent = process.cwd();
@@ -33,6 +34,7 @@ electron.ipcRenderer.on("recibiendo",(event,mensaje) => {
   displays.innerHTML += mensaje + "</p>";
 });
 
+nrClientes.textContent = 0;
 electron.ipcRenderer.on("nrClientes",(event,mensaje) => {
   nrClientes.textContent = mensaje;
 });

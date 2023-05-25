@@ -1,7 +1,11 @@
+body{
+background-color: aquamarine;
+}
+
 h1 {
     width: 93%;
     padding: 20px;
-    background-color: lightgreen;
+    background-color: blue;
     border-radius: 10px;
     text-align: center;
   }
@@ -17,4 +21,5 @@ h1 {
   #displays {
       border: 2px solid lightblue;
       padding: 10px;
+      background-color: white;
   }
