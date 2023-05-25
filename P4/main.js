@@ -89,25 +89,25 @@ io.on('connect', (socket) => {
     console.log("Mensaje Recibido!: " + msg);
   
     //-- Si el mensaje comienza con un "/", se interpreta como un comando
-    if (msg.startsWith("/")) {
+    if (msg.split("/")[1]) {
       //-- Separar el comando y los argumentos (si los hay)
-      const partes = msg.split(" ");
-      const comando = partes[0];
-      const argumento = partes[1];
+
+      const comando = msg.split("/")[1];
+      const argumento = msg.split(":")[0];
 
 
     switch(comando) {
-      case "/help":
+      case "help":
         socket.send("Comandos disponibles: /help, /list, /hello, /date");
         break;
-      case "/list":
+      case "list":
         socket.send("Número de usuarios conectados: " + io.engine.clientsCount);
         break;
-      case "/hello":
+      case "hello":
         const nombre = argumento || "desconocido"
         socket.send(`¡Hola! ¿Cómo estás ${nombre}?`);
         break;
-      case "/date":
+      case "date":
         const date = new Date().toLocaleDateString();
         socket.send("La fecha actual es: " + date);
         break;
