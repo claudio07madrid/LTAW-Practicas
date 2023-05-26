@@ -1,5 +1,6 @@
 const display = document.getElementById("display");
 const msg_entry = document.getElementById("msg_entry");
+const user_msg_entry = document.getElementById("user_msg_entry");
 const status = document.getElementById("status");
 
 const socket = io();
@@ -27,9 +28,13 @@ socket.on("nuevoCliente", (msg) => {
   display.innerHTML += '<p style="color:green">' + msg + '</p>';
 });
 
-//-- Al apretar el botón se envía un mensaje al servidor
+
+
 msg_entry.onchange = () => {
-  if (msg_entry.value)
-    socket.send(msg_entry.value);
+  const user = user_msg_entry.value || "Anonimo"; // Asignar "anónimo" si no se ingresa ningún usuario
+  const message = msg_entry.value;
+  if (message) {
+    socket.send(user + ":" + message);
+  }
   msg_entry.value = "";
 };
